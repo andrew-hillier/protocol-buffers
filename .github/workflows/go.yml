@@ -24,5 +24,8 @@ jobs:
     - name: Build Producer
       run: go build -v util.go producer.go
 
-    - name: Test
-      run: go test -v ./...
+    - name: Test Consumer
+      run: go test -v util.go consumer.go
+
+    - name: Test Producer
+      run: go test -v util.go producer.go
