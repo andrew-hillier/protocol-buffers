@@ -42,3 +42,10 @@ go build -o out/file ioetest/cpu.pb.go iotest/file.go
 ```
 ./out/file
 ```
+
+## Step Three - generate *.pb.go files
+https://developers.google.com/protocol-buffers/docs/gotutorial
+
+```
+protoc --go_out=. addressbook.proto
+```

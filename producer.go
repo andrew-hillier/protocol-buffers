@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 
+	pb "github.com/andrew-hillier/protocol-buffers/github.com/protocolbuffers/protobuf/examples/go/tutorialpb"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"google.golang.org/protobuf/proto"
 )
 
 func main() {
@@ -46,10 +49,25 @@ func main() {
 	for n := 0; n < 10; n++ {
 		key := users[rand.Intn(len(users))]
 		data := items[rand.Intn(len(items))]
+
+		person := &pb.Person{
+			Id:    rand.Int31(),
+			Name:  key,
+			Email: key + "@" + data + ".com",
+			Phones: []*pb.Person_PhoneNumber{
+				{Number: "555-4321", Type: pb.Person_HOME},
+			},
+		}
+
+		out, err := proto.Marshal(person)
+		if err != nil {
+			log.Fatalf("Serialization error: %s", err.Error())
+		}
+
 		p.Produce(&kafka.Message{
 			TopicPartition: kafka.TopicPartition{Topic: &topic, Partition: kafka.PartitionAny},
 			Key:            []byte(key),
-			Value:          []byte(data),
+			Value:          out,
 		}, nil)
 	}
 

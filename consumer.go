@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
+	pb "github.com/andrew-hillier/protocol-buffers/github.com/protocolbuffers/protobuf/examples/go/tutorialpb"
 	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"google.golang.org/protobuf/proto"
 )
 
 func main() {
@@ -48,8 +51,15 @@ func main() {
 				// Errors are informational and automatically handled by the consumer
 				continue
 			}
-			fmt.Printf("Consumed event from topic %s: key = %-10s value = %s\n",
-				*ev.TopicPartition.Topic, string(ev.Key), string(ev.Value))
+
+			person := &pb.Person{}
+			err = proto.Unmarshal(ev.Value, person)
+			if err != nil {
+				log.Fatalf("Deserialisation error: %s", err.Error())
+			}
+
+			fmt.Printf("Consumed event from topic %s: key = %-10s value = {%v}\n",
+				*ev.TopicPartition.Topic, string(ev.Key), person)
 		}
 	}
 
