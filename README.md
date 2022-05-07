@@ -28,3 +28,15 @@ go build -o out/consumer util.go consumer.go
 
 ./out/consumer getting-started.properties
 ```
+
+## Step Two - protobuf rw file (non generated)
+
+### Build
+```
+go build -o out/file ioetest/cpu.pb.go iotest/file.go 
+```
+
+### Run
+```
+./out/file
+```
