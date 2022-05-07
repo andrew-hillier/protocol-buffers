@@ -7,7 +7,7 @@ https://developer.confluent.io/get-started/go/#introduction
 ```
 docker compose up -d
 
-docker compose exec broker \
+docker compose exec kafka \
   kafka-topics --create \
     --topic purchases \
     --bootstrap-server localhost:9092 \
