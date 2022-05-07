@@ -30,6 +30,8 @@ go build -o out/consumer util.go consumer.go
 ```
 
 ## Step Two - protobuf rw file (non generated)
+https://golangbyexample.com/protocol-buffers-go/
+https://dev.to/techschoolguru/how-to-define-a-protobuf-message-and-generate-go-code-4g4e
 
 ### Build
 ```
