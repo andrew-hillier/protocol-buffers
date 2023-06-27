@@ -5,5 +5,5 @@ go 1.17
 require (
 	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/golang/protobuf v1.5.3
-	google.golang.org/protobuf v1.30.0
+	google.golang.org/protobuf v1.31.0
 )
